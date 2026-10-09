@@ -1,14 +1,49 @@
+import 'dart:async';
+import 'dart:ui' show PlatformDispatcher;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './views/home.dart';
 import 'controllers/config.dart';
 import 'controllers/data.dart';
 
 void main() {
-  ConfigController configController = Get.put(ConfigController());
-  DataController dataController = Get.put(DataController());
-  runApp(const MyApp());
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    FlutterError.onError = (details) {
+      FlutterError.presentError(details);
+      _showErrorSnackbar(details.exception);
+    };
+    PlatformDispatcher.instance.onError = (error, stackTrace) {
+      _reportUncaughtError(error, stackTrace);
+      return true;
+    };
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Get.put(ConfigController(prefs));
+    DataController dataController = Get.put(DataController());
+    dataController.init();
+    runApp(const MyApp());
+  }, _reportUncaughtError);
+}
+
+void _reportUncaughtError(Object error, StackTrace stackTrace) {
+  FlutterError.presentError(
+    FlutterErrorDetails(exception: error, stack: stackTrace),
+  );
+  _showErrorSnackbar(error);
+}
+
+void _showErrorSnackbar(Object error) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Get.snackbar(
+      'Error',
+      'Something went wrong: $error',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +60,11 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.lightBlue,
         ),
       ),
-      home: Home(),
+      home: Obx(
+        () => Get.find<DataController>().ready.value
+            ? Home()
+            : const Scaffold(body: Center(child: CircularProgressIndicator())),
+      ),
     );
   }
 }

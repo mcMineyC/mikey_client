@@ -12,16 +12,17 @@ abstract class Person with _$Person {
   Person._();
   factory Person({
     required int id,
-    required String planningCenterId,
+    required int planCenterId,
     required String name,
+    String? micId,
   }) = _Person;
 
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
   get imageUrl =>
-      "${Get.find<ConfigController>().serverUrl}/person/$planningCenterId/image";
+      "${Get.find<ConfigController>().serverUrl}/person/$planCenterId/image";
 
-  factory Person.empty() => Person(id: 0, planningCenterId: '', name: '');
+  factory Person.empty() => Person(id: 0, planCenterId: -1, name: '');
 
   //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
 }

@@ -11,8 +11,8 @@ abstract class Plan with _$Plan {
     required int id,
     required int planningCenterId,
     required String title,
-    required String displayName,
-    required DateTime startDate,
+    required String name,
+    required DateTime startTime,
     required Duration duration,
   }) = _Plan;
 
@@ -22,8 +22,8 @@ abstract class Plan with _$Plan {
     id: 0,
     planningCenterId: 0,
     title: '',
-    displayName: '',
-    startDate: DateTime.now(),
+    name: '',
+    startTime: DateTime.now(),
     duration: Duration.zero,
   );
 
