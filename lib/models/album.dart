@@ -4,16 +4,16 @@ part 'album.freezed.dart';
 part 'album.g.dart';
 
 @freezed
-class Album with _$Album {
+abstract class Album with _$Album {
   Album._();
   factory Album({
     required String id,
     required String artistId,
     required String displayName,
     required String artistDisplayName,
-    required int    songCount,
+    required int songCount,
     required String imageUrl,
-    required int    added,
+    required int added,
     required List<String> visibleTo,
     required List<String> inLibrary,
     required String addedBy,
@@ -34,5 +34,5 @@ class Album with _$Album {
     addedBy: '',
   );
 
-//   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
+  //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
 }
