@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../controllers/data.dart';
 import '../models/plan.dart';
-import 'plan/plan_info.dart';
+import 'plan/plan.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
             return ListTile(
               title: Text(plan.name),
               onTap: () {
-                Get.to(PlanView(planId: plan.id));
+                Get.to(PlanInfoView(planId: plan.id));
               },
             );
           },

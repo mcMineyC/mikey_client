@@ -3,12 +3,13 @@ import "package:get/get.dart";
 
 import "../../controllers/data.dart";
 import "../../models/enhanced_plan.dart";
+import "plan_glance.dart";
 
-class PlanView extends StatelessWidget {
+class PlanInfoView extends StatelessWidget {
   final int planId;
   RxString hash = "".obs;
   EnhancedPlan? plan;
-  PlanView({super.key, required this.planId});
+  PlanInfoView({super.key, required this.planId});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,13 @@ class PlanView extends StatelessWidget {
         });
     return Scaffold(
       appBar: AppBar(
-        title: Text("Plan $planId"),
+        title: Obx(
+          () => Text(
+            hash.value.isNotEmpty
+                ? plan?.descriptiveTitle ?? 'Plan $planId'
+                : 'Loading',
+          ),
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -37,10 +44,23 @@ class PlanView extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Obx(
-          () => Text(
-            "Details for plan $planId \nHash: ${hash.value}\nPlan: ${plan?.title ?? 'Loading...'}",
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Obx(
+              () => Text(
+                "Details for plan $planId \nHash: ${hash.value}\nPlan: ${plan?.title ?? 'Loading...'}",
+              ),
+            ),
+            FilledButton.tonal(
+              onPressed: () {
+                Get.to(() => PlanView(planId: planId));
+              },
+              child: Text("Open glance view"),
+            ),
+          ],
         ),
       ),
     );

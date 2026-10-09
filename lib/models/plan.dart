@@ -27,5 +27,18 @@ abstract class Plan with _$Plan {
     duration: Duration.zero,
   );
 
+  String get descriptiveTitle => "$title (${_formatStartTime(startTime)})";
+  String get formattedStartTime => _formatStartTime(startTime);
+  String _formatStartTime(Object value) {
+    final startTime = value is DateTime
+        ? value
+        : DateTime.parse(value.toString());
+    final hour = startTime.hour.toString().padLeft(2, '0');
+    final minute = startTime.minute.toString().padLeft(2, '0');
+    final month = startTime.month.toString().padLeft(2, '0');
+    final day = startTime.day.toString().padLeft(2, '0');
+    final year = (startTime.year % 100).toString().padLeft(2, '0');
+    return '($hour:$minute $month/$day/$year)';
+  }
   //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
 }
