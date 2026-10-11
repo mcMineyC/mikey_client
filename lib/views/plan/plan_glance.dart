@@ -3,6 +3,7 @@ import "dart:math" as math;
 import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:google_fonts/google_fonts.dart";
 
 import "../../controllers/data.dart";
 import "../../models/enhanced_plan.dart";
@@ -121,11 +122,21 @@ class PlanView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            person.name,
-                                            style: const TextStyle(
-                                              fontSize: 24,
-                                              color: Colors.white,
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              0,
+                                              8.0,
+                                              0,
+                                              0,
+                                            ),
+                                            child: Text(
+                                              person.name,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                             ),
                                           ),
                                         ],
