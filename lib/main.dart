@@ -3,6 +3,7 @@ import 'dart:ui' show PlatformDispatcher;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './views/home.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Mikey',
       theme: ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
           seedColor: Colors.lightBlue,

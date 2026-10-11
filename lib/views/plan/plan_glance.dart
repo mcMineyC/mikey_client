@@ -1,5 +1,6 @@
 import "dart:math" as math;
 
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 
@@ -39,27 +40,103 @@ class PlanView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
-                    child: Row(
-                      children: plan!.people
-                          .where((person) => person.micId != null)
-                          .map(
-                            (person) => Expanded(
-                              child: Container(
-                                margin: EdgeInsets.all(16),
-                                color: Colors.black,
-                                child: Center(
-                                  child: Text(
-                                    person.name,
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      color: Colors.white,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final people = plan!.people
+                            .where((person) => person.micId != null)
+                            .toList();
+                        if (people.isEmpty) {
+                          return const SizedBox.shrink();
+                        }
+
+                        final cardWidth = constraints.maxWidth / people.length;
+                        final imageSize = math.max(
+                          0.0,
+                          math.min(cardWidth - 64, constraints.maxHeight - 98),
+                        );
+
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: people
+                              .map(
+                                (person) => ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: cardWidth,
+                                    maxHeight: constraints.maxHeight,
+                                  ),
+                                  child: Card.filled(
+                                    shape: RoundedRectangleBorder(
+                                      // side: BorderSide(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(48),
+                                    ),
+                                    // shape: RoundedRectangleBorder(
+                                    //   side: BorderSide(color: Colors.red),
+                                    //   borderRadius: BorderRadius.circular(48),
+                                    // ),
+                                    margin: const EdgeInsets.all(16),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              32,
+                                            ),
+                                            child: ConstrainedBox(
+                                              constraints: BoxConstraints(
+                                                maxWidth: imageSize,
+                                                maxHeight: imageSize,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: person.imageUrl,
+                                                fit: BoxFit.contain,
+                                                progressIndicatorBuilder:
+                                                    (
+                                                      context,
+                                                      url,
+                                                      downloadProgress,
+                                                    ) => Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress,
+                                                          ),
+                                                    ),
+                                                errorWidget:
+                                                    (
+                                                      context,
+                                                      url,
+                                                      error,
+                                                    ) => Center(
+                                                      child: Icon(
+                                                        Icons
+                                                            .error_outline_rounded,
+                                                      ),
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            person.name,
+                                            style: const TextStyle(
+                                              fontSize: 24,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                              )
+                              .toList(),
+                        );
+                      },
                     ),
                   ),
                   Container(
