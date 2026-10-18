@@ -11,25 +11,35 @@ class ConfigController extends GetxController {
 
   ConfigController(SharedPreferences prefs) {
     _prefs = prefs;
+
+    //Init clientId if it doesn't exist
+    () {
+      final String? storedId = _prefs.getString('clientId');
+      if (storedId != null && storedId.isNotEmpty) return;
+
+      _prefs.setString('clientId', generateClientId());
+    };
   }
 
   String get clientName => _prefs.getString('clientName') ?? '';
   set clientName(String value) => _prefs.setString('clientName', value);
 
-  String get clientId {
-    final String? storedId = _prefs.getString('clientId');
-    if (storedId != null && storedId.isNotEmpty) return storedId;
+  String get clientId => _prefs.getString("clientId") ?? '';
+  void resetClientId() {
+    _prefs.setString('clientId', generateClientId());
+  }
 
+  String generateClientId() {
     final Random random = Random.secure();
     final String seed = List<int>.generate(
       16,
       (_) => random.nextInt(256),
     ).map((byte) => byte.toRadixString(16).padLeft(2, '0')).join();
     final String generatedId = md5Hash(seed);
-    _prefs.setString('clientId', generatedId);
     return generatedId;
   }
 
+  // Temporary, will rely on mDNS in the future!
   String get serverUrl => _prefs.getString('serverUrl') ?? kFallbackServerUrl;
   set serverUrl(String value) => _prefs.setString('serverUrl', value);
 }
