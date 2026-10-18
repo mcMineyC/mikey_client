@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
           itemBuilder: (context, index) {
             Plan plan = plans[index];
             return ListTile(
-              title: Text(plan.name),
+              title: Text(plan.title),
               onTap: () {
                 Get.to(PlanInfoView(planId: plan.id));
               },

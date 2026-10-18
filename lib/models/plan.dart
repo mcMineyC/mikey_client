@@ -10,7 +10,6 @@ abstract class Plan with _$Plan {
   factory Plan({
     required int id,
     required int planningCenterId,
-    required String title,
     required String name,
     required DateTime startTime,
     required Duration duration,
@@ -21,13 +20,13 @@ abstract class Plan with _$Plan {
   factory Plan.empty() => Plan(
     id: 0,
     planningCenterId: 0,
-    title: '',
     name: '',
     startTime: DateTime.now(),
     duration: Duration.zero,
   );
 
-  String get descriptiveTitle => "$title (${_formatStartTime(startTime)})";
+  String get title => name == "" ? formattedStartTime : name;
+  String get descriptiveTitle => "$title ($formattedStartTime)";
   String get formattedStartTime => _formatStartTime(startTime);
   String _formatStartTime(Object value) {
     final startTime = value is DateTime
@@ -38,7 +37,7 @@ abstract class Plan with _$Plan {
     final month = startTime.month.toString().padLeft(2, '0');
     final day = startTime.day.toString().padLeft(2, '0');
     final year = (startTime.year % 100).toString().padLeft(2, '0');
-    return '($hour:$minute $month/$day/$year)';
+    return '$hour:$minute $month/$day/$year';
   }
   //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
 }

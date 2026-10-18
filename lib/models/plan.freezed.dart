@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Plan {
 
- int get id; int get planningCenterId; String get title; String get name; DateTime get startTime; Duration get duration;
+ int get id; int get planningCenterId; String get name; DateTime get startTime; Duration get duration;
 /// Create a copy of Plan
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $PlanCopyWith<Plan> get copyWith => _$PlanCopyWithImpl<Plan>(this as Plan, _$ide
 @override
 bool operator ==(Object other) {
   final _this = this as Plan;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Plan&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.planningCenterId, _this.planningCenterId) || other.planningCenterId == _this.planningCenterId)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.startTime, _this.startTime) || other.startTime == _this.startTime)&&(identical(other.duration, _this.duration) || other.duration == _this.duration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Plan&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.planningCenterId, _this.planningCenterId) || other.planningCenterId == _this.planningCenterId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.startTime, _this.startTime) || other.startTime == _this.startTime)&&(identical(other.duration, _this.duration) || other.duration == _this.duration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Plan;
-  return Object.hash(runtimeType,_this.id,_this.planningCenterId,_this.title,_this.name,_this.startTime,_this.duration);
+  return Object.hash(runtimeType,_this.id,_this.planningCenterId,_this.name,_this.startTime,_this.duration);
 }
 
 @override
 String toString() {
   final _this = this as Plan;
-  return 'Plan(id: ${_this.id}, planningCenterId: ${_this.planningCenterId}, title: ${_this.title}, name: ${_this.name}, startTime: ${_this.startTime}, duration: ${_this.duration})';
+  return 'Plan(id: ${_this.id}, planningCenterId: ${_this.planningCenterId}, name: ${_this.name}, startTime: ${_this.startTime}, duration: ${_this.duration})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $PlanCopyWith<$Res>  {
   factory $PlanCopyWith(Plan value, $Res Function(Plan) _then) = _$PlanCopyWithImpl;
 @useResult
 $Res call({
- int id, int planningCenterId, String title, String name, DateTime startTime, Duration duration
+ int id, int planningCenterId, String name, DateTime startTime, Duration duration
 });
 
 
@@ -71,12 +71,11 @@ class _$PlanCopyWithImpl<$Res>
 
 /// Create a copy of Plan
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? planningCenterId = null,Object? title = null,Object? name = null,Object? startTime = null,Object? duration = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? planningCenterId = null,Object? name = null,Object? startTime = null,Object? duration = null,}) {
   return _then(Plan(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,planningCenterId: null == planningCenterId ? _self.planningCenterId : planningCenterId // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
 as DateTime,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
 as Duration,
@@ -164,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int planningCenterId,  String title,  String name,  DateTime startTime,  Duration duration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int planningCenterId,  String name,  DateTime startTime,  Duration duration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Plan() when $default != null:
-return $default(_that.id,_that.planningCenterId,_that.title,_that.name,_that.startTime,_that.duration);case _:
+return $default(_that.id,_that.planningCenterId,_that.name,_that.startTime,_that.duration);case _:
   return orElse();
 
 }
@@ -185,10 +184,10 @@ return $default(_that.id,_that.planningCenterId,_that.title,_that.name,_that.sta
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int planningCenterId,  String title,  String name,  DateTime startTime,  Duration duration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int planningCenterId,  String name,  DateTime startTime,  Duration duration)  $default,) {final _that = this;
 switch (_that) {
 case _Plan():
-return $default(_that.id,_that.planningCenterId,_that.title,_that.name,_that.startTime,_that.duration);case _:
+return $default(_that.id,_that.planningCenterId,_that.name,_that.startTime,_that.duration);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +204,10 @@ return $default(_that.id,_that.planningCenterId,_that.title,_that.name,_that.sta
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int planningCenterId,  String title,  String name,  DateTime startTime,  Duration duration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int planningCenterId,  String name,  DateTime startTime,  Duration duration)?  $default,) {final _that = this;
 switch (_that) {
 case _Plan() when $default != null:
-return $default(_that.id,_that.planningCenterId,_that.title,_that.name,_that.startTime,_that.duration);case _:
+return $default(_that.id,_that.planningCenterId,_that.name,_that.startTime,_that.duration);case _:
   return null;
 
 }
@@ -220,12 +219,11 @@ return $default(_that.id,_that.planningCenterId,_that.title,_that.name,_that.sta
 @JsonSerializable()
 
 class _Plan extends Plan {
-   _Plan({required this.id, required this.planningCenterId, required this.title, required this.name, required this.startTime, required this.duration}): super._();
+   _Plan({required this.id, required this.planningCenterId, required this.name, required this.startTime, required this.duration}): super._();
   factory _Plan.fromJson(Map<String, dynamic> json) => _$PlanFromJson(json);
 
 @override final  int id;
 @override final  int planningCenterId;
-@override final  String title;
 @override final  String name;
 @override final  DateTime startTime;
 @override final  Duration duration;
@@ -243,18 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Plan&&(identical(other.id, id) || other.id == id)&&(identical(other.planningCenterId, planningCenterId) || other.planningCenterId == planningCenterId)&&(identical(other.title, title) || other.title == title)&&(identical(other.name, name) || other.name == name)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.duration, duration) || other.duration == duration));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Plan&&(identical(other.id, id) || other.id == id)&&(identical(other.planningCenterId, planningCenterId) || other.planningCenterId == planningCenterId)&&(identical(other.name, name) || other.name == name)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.duration, duration) || other.duration == duration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,planningCenterId,title,name,startTime,duration);
+    return Object.hash(runtimeType,id,planningCenterId,name,startTime,duration);
 }
 
 @override
 String toString() {
-    return 'Plan(id: $id, planningCenterId: $planningCenterId, title: $title, name: $name, startTime: $startTime, duration: $duration)';
+    return 'Plan(id: $id, planningCenterId: $planningCenterId, name: $name, startTime: $startTime, duration: $duration)';
 }
 
 
@@ -265,7 +263,7 @@ abstract mixin class _$PlanCopyWith<$Res> implements $PlanCopyWith<$Res> {
   factory _$PlanCopyWith(_Plan value, $Res Function(_Plan) _then) = __$PlanCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int planningCenterId, String title, String name, DateTime startTime, Duration duration
+ int id, int planningCenterId, String name, DateTime startTime, Duration duration
 });
 
 
@@ -282,12 +280,11 @@ class __$PlanCopyWithImpl<$Res>
 
 /// Create a copy of Plan
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? planningCenterId = null,Object? title = null,Object? name = null,Object? startTime = null,Object? duration = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? planningCenterId = null,Object? name = null,Object? startTime = null,Object? duration = null,}) {
   return _then(_Plan(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,planningCenterId: null == planningCenterId ? _self.planningCenterId : planningCenterId // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
 as DateTime,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
 as Duration,

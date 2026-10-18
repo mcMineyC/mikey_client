@@ -24,6 +24,11 @@ class PlanView extends StatelessWidget {
               Get.find<DataController>().hashes[plan?.planCenterId
                   .toString()] ??
               "";
+          print(
+            plan?.people
+                .map((p) => p.name + ": " + (p.micId ?? "(null)"))
+                .toList(),
+          );
         })
         .onError((error, stackTrace) {
           print("Error fetching plan $planId: $error");
@@ -47,7 +52,21 @@ class PlanView extends StatelessWidget {
                             .where((person) => person.micId != null)
                             .toList();
                         if (people.isEmpty) {
-                          return const SizedBox.shrink();
+                          return Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.mic_off_rounded, size: 64),
+                                SizedBox(height: 16),
+                                Text(
+                                  "No mics assigned!",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall,
+                                ),
+                              ],
+                            ),
+                          );
                         }
 
                         final cardWidth = constraints.maxWidth / people.length;
@@ -130,13 +149,29 @@ class PlanView extends StatelessWidget {
                                               0,
                                             ),
                                             child: Text(
-                                              person.name,
+                                              person.shortName,
+                                              textAlign: TextAlign.center,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headlineMedium
+                                                  .displayMedium
                                                   ?.copyWith(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight: FontWeight.w900,
                                                   ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              0,
+                                              8.0,
+                                              0,
+                                              0,
+                                            ),
+                                            child: Text(
+                                              person.micId ?? "None",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge,
                                             ),
                                           ),
                                         ],

@@ -22,6 +22,15 @@ abstract class Person with _$Person {
   get imageUrl =>
       "${Get.find<ConfigController>().serverUrl}/person/$planCenterId/image";
 
+  get shortName {
+    final parts = name.split(" ");
+    if (parts.length >= 2) {
+      return "${parts[0]} ${parts[1][0]}";
+    } else {
+      return name;
+    }
+  }
+
   factory Person.empty() => Person(id: 0, planCenterId: -1, name: '');
 
   //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
