@@ -14,6 +14,7 @@ abstract class Person with _$Person {
     required int id,
     required int planCenterId,
     required String name,
+    required String role,
     String? micId,
   }) = _Person;
 
@@ -31,7 +32,7 @@ abstract class Person with _$Person {
     }
   }
 
-  factory Person.empty() => Person(id: 0, planCenterId: -1, name: '');
+  factory Person.empty() => Person(id: 0, planCenterId: -1, role: '', name: '');
 
   //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
 }

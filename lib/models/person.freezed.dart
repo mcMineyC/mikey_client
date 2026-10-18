@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Person {
 
- int get id; int get planCenterId; String get name; String? get micId;
+ int get id; int get planCenterId; String get name; String get role; String? get micId;
 /// Create a copy of Person
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $PersonCopyWith<Person> get copyWith => _$PersonCopyWithImpl<Person>(this as Per
 @override
 bool operator ==(Object other) {
   final _this = this as Person;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Person&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.planCenterId, _this.planCenterId) || other.planCenterId == _this.planCenterId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.micId, _this.micId) || other.micId == _this.micId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Person&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.planCenterId, _this.planCenterId) || other.planCenterId == _this.planCenterId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.role, _this.role) || other.role == _this.role)&&(identical(other.micId, _this.micId) || other.micId == _this.micId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Person;
-  return Object.hash(runtimeType,_this.id,_this.planCenterId,_this.name,_this.micId);
+  return Object.hash(runtimeType,_this.id,_this.planCenterId,_this.name,_this.role,_this.micId);
 }
 
 @override
 String toString() {
   final _this = this as Person;
-  return 'Person(id: ${_this.id}, planCenterId: ${_this.planCenterId}, name: ${_this.name}, micId: ${_this.micId})';
+  return 'Person(id: ${_this.id}, planCenterId: ${_this.planCenterId}, name: ${_this.name}, role: ${_this.role}, micId: ${_this.micId})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $PersonCopyWith<$Res>  {
   factory $PersonCopyWith(Person value, $Res Function(Person) _then) = _$PersonCopyWithImpl;
 @useResult
 $Res call({
- int id, int planCenterId, String name, String? micId
+ int id, int planCenterId, String name, String role, String? micId
 });
 
 
@@ -71,11 +71,12 @@ class _$PersonCopyWithImpl<$Res>
 
 /// Create a copy of Person
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? planCenterId = null,Object? name = null,Object? micId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? planCenterId = null,Object? name = null,Object? role = null,Object? micId = freezed,}) {
   return _then(Person(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,planCenterId: null == planCenterId ? _self.planCenterId : planCenterId // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,micId: freezed == micId ? _self.micId : micId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int planCenterId,  String name,  String? micId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int planCenterId,  String name,  String role,  String? micId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Person() when $default != null:
-return $default(_that.id,_that.planCenterId,_that.name,_that.micId);case _:
+return $default(_that.id,_that.planCenterId,_that.name,_that.role,_that.micId);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.id,_that.planCenterId,_that.name,_that.micId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int planCenterId,  String name,  String? micId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int planCenterId,  String name,  String role,  String? micId)  $default,) {final _that = this;
 switch (_that) {
 case _Person():
-return $default(_that.id,_that.planCenterId,_that.name,_that.micId);case _:
+return $default(_that.id,_that.planCenterId,_that.name,_that.role,_that.micId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.id,_that.planCenterId,_that.name,_that.micId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int planCenterId,  String name,  String? micId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int planCenterId,  String name,  String role,  String? micId)?  $default,) {final _that = this;
 switch (_that) {
 case _Person() when $default != null:
-return $default(_that.id,_that.planCenterId,_that.name,_that.micId);case _:
+return $default(_that.id,_that.planCenterId,_that.name,_that.role,_that.micId);case _:
   return null;
 
 }
@@ -218,12 +219,13 @@ return $default(_that.id,_that.planCenterId,_that.name,_that.micId);case _:
 @JsonSerializable()
 
 class _Person extends Person {
-   _Person({required this.id, required this.planCenterId, required this.name, this.micId}): super._();
+   _Person({required this.id, required this.planCenterId, required this.name, required this.role, this.micId}): super._();
   factory _Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
 @override final  int id;
 @override final  int planCenterId;
 @override final  String name;
+@override final  String role;
 @override final  String? micId;
 
 /// Create a copy of Person
@@ -239,18 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Person&&(identical(other.id, id) || other.id == id)&&(identical(other.planCenterId, planCenterId) || other.planCenterId == planCenterId)&&(identical(other.name, name) || other.name == name)&&(identical(other.micId, micId) || other.micId == micId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Person&&(identical(other.id, id) || other.id == id)&&(identical(other.planCenterId, planCenterId) || other.planCenterId == planCenterId)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.micId, micId) || other.micId == micId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,planCenterId,name,micId);
+    return Object.hash(runtimeType,id,planCenterId,name,role,micId);
 }
 
 @override
 String toString() {
-    return 'Person(id: $id, planCenterId: $planCenterId, name: $name, micId: $micId)';
+    return 'Person(id: $id, planCenterId: $planCenterId, name: $name, role: $role, micId: $micId)';
 }
 
 
@@ -261,7 +263,7 @@ abstract mixin class _$PersonCopyWith<$Res> implements $PersonCopyWith<$Res> {
   factory _$PersonCopyWith(_Person value, $Res Function(_Person) _then) = __$PersonCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int planCenterId, String name, String? micId
+ int id, int planCenterId, String name, String role, String? micId
 });
 
 
@@ -278,11 +280,12 @@ class __$PersonCopyWithImpl<$Res>
 
 /// Create a copy of Person
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? planCenterId = null,Object? name = null,Object? micId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? planCenterId = null,Object? name = null,Object? role = null,Object? micId = freezed,}) {
   return _then(_Person(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,planCenterId: null == planCenterId ? _self.planCenterId : planCenterId // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,micId: freezed == micId ? _self.micId : micId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
