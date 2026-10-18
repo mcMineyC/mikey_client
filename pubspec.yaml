@@ -41,6 +41,9 @@ dependencies:
   http: ^1.6.0
   cached_network_image: ^4.0.4
   google_fonts: ^9.0.0
+  web_socket_channel: ^3.0.3
+  sidebarx: ^0.17.2
+  crypto: ^3.0.7
 
 dev_dependencies:
   flutter_test:

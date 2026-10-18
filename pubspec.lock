@@ -170,7 +170,7 @@ packages:
     source: hosted
     version: "3.1.2"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       sha256: c8ea0233063ba03258fbcf2ca4d6dadfefe14f02fab57702265467a19f27fadf
@@ -693,6 +693,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  sidebarx:
+    dependency: "direct main"
+    description:
+      name: sidebarx
+      sha256: "970cba4be128f217b0f714322203e6933fb3a12602fef0c39248f5800184068e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -875,7 +883,7 @@ packages:
     source: hosted
     version: "1.0.1"
   web_socket_channel:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: web_socket_channel
       sha256: d645757fb0f4773d602444000a8131ff5d48c9e47adfe9772652dd1a4f2d45c8

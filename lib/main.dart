@@ -4,6 +4,8 @@ import 'dart:ui' show PlatformDispatcher;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mikey_client/controllers/socket.dart';
+import 'package:mikey_client/controllers/state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './views/home.dart';
@@ -23,7 +25,10 @@ void main() {
     };
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    Get.put(ConfigController(prefs));
+    final ConfigController configController = ConfigController(prefs);
+    Get.put(configController);
+    Get.put(StateController());
+    Get.put(SocketController(configController.serverUrl + "/ws"));
     DataController dataController = Get.put(DataController());
     dataController.init();
     runApp(const MyApp());
@@ -62,6 +67,7 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.lightBlue,
         ),
       ),
+      debugShowCheckedModeBanner: false,
       home: Obx(
         () => Get.find<DataController>().ready.value
             ? Home()

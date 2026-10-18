@@ -32,7 +32,9 @@ abstract class EnhancedPlan with _$EnhancedPlan {
     people: [],
   );
 
-  String get descriptiveTitle => "$title (${_formatStartTime(startTime)})";
+  String get descriptiveTitle => title == ""
+      ? formattedStartTime
+      : "$title (${_formatStartTime(startTime)})";
   String get formattedStartTime => _formatStartTime(startTime);
   String _formatStartTime(Object value) {
     final startTime = value is DateTime
@@ -43,7 +45,7 @@ abstract class EnhancedPlan with _$EnhancedPlan {
     final month = startTime.month.toString().padLeft(2, '0');
     final day = startTime.day.toString().padLeft(2, '0');
     final year = (startTime.year % 100).toString().padLeft(2, '0');
-    return '($hour:$minute $month/$day/$year)';
+    return '$hour:$minute $month/$day/$year';
   }
   //   bool get isInLibrary => inLibrary.contains(ServiceLocator().get<PreferencesProvider>().loginName);
 }

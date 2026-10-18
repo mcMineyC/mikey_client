@@ -1,16 +1,13 @@
 import "dart:convert";
-import "dart:io";
 
-import "package:crypto/crypto.dart";
 import "package:http/http.dart" as http;
 import "package:get/get.dart";
 
 import "../constants.dart";
 import "../models/enhanced_plan.dart";
 import "../models/plan.dart";
+import "../utils/hash.dart";
 import "config.dart";
-
-String md5Hash(String value) => md5.convert(utf8.encode(value)).toString();
 
 class DataController extends GetxController {
   RxMap<String, String> hashes = <String, String>{}.obs;

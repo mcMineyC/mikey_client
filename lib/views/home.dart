@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mikey_client/views/settings/scaffold.dart';
 
 import '../controllers/data.dart';
 import '../models/plan.dart';
@@ -10,6 +11,14 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Plan> plans = Get.find<DataController>().plans;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings_rounded),
+            onPressed: () => Get.to(SettingsView()),
+          ),
+        ],
+      ),
       body: Center(
         child: ListView.builder(
           itemCount: plans.length,
@@ -18,7 +27,7 @@ class Home extends StatelessWidget {
             return ListTile(
               title: Text(plan.title),
               onTap: () {
-                Get.to(PlanInfoView(planId: plan.id));
+                Get.to(PlanView(planId: plan.id));
               },
             );
           },

@@ -39,6 +39,7 @@ class PlanView extends StatelessWidget {
         });
     const double refHeight = 976;
     const double refWidth = 700;
+    ThemeData t = Theme.of(context);
     // print(
     // "${MediaQuery.of(context).size.width}x${MediaQuery.of(context).size.height}",
     // );
@@ -87,6 +88,8 @@ class PlanView extends StatelessWidget {
                           mics = false;
                         }
 
+                        // VERT CARDS
+
                         final cardWidth = constraints.maxWidth / people.length;
                         if (verticalCards) {
                           final cardHeight =
@@ -117,6 +120,8 @@ class PlanView extends StatelessWidget {
                                 .toList(),
                           );
                         }
+
+                        //NORMAL HORIZ CARDS
 
                         final imageSize = math.max(0.0, cardWidth - 64);
                         return Row(
@@ -164,6 +169,7 @@ class PlanView extends StatelessWidget {
                             hash.value.isNotEmpty
                                 ? plan?.descriptiveTitle ?? 'Plan $planId'
                                 : 'Loading',
+                            style: t.textTheme.headlineSmall,
                           ),
                         ),
                       ],
@@ -222,7 +228,9 @@ class _PlanPersonCard extends StatelessWidget {
             textAlign: vertical ? TextAlign.start : TextAlign.center,
             style: compact
                 ? theme.textTheme.displaySmall
-                : theme.textTheme.displayLarge,
+                : mics
+                ? theme.textTheme.displayLarge
+                : theme.textTheme.displaySmall,
           ),
         ),
       ],
