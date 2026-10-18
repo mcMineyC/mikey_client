@@ -8,6 +8,7 @@ import "package:google_fonts/google_fonts.dart";
 
 import "../../controllers/data.dart";
 import "../../models/enhanced_plan.dart";
+import "../../models/person.dart";
 
 class PlanView extends StatelessWidget {
   final int planId;
@@ -59,6 +60,9 @@ class PlanView extends StatelessWidget {
                         bool compact =
                             people.length * 320 >
                             MediaQuery.of(context).size.width;
+                        final verticalCards =
+                            MediaQuery.sizeOf(context).width <
+                            MediaQuery.sizeOf(context).height;
                         bool mics = true;
                         ThemeData t = Theme.of(context);
                         // if (people.isEmpty) {
@@ -84,8 +88,37 @@ class PlanView extends StatelessWidget {
                         }
 
                         final cardWidth = constraints.maxWidth / people.length;
-                        final imageSize = math.max(0.0, cardWidth - 64);
+                        if (verticalCards) {
+                          final cardHeight =
+                              constraints.maxHeight / people.length;
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: people
+                                .map(
+                                  (person) => SizedBox(
+                                    width: constraints.maxWidth,
+                                    height: cardHeight,
+                                    child: _ScaleDown(
+                                      child: _PlanPersonCard(
+                                        person: person,
+                                        compact: compact,
+                                        mics: mics,
+                                        vertical: true,
+                                        width: constraints.maxWidth,
+                                        imageSize: math.max(
+                                          0,
+                                          constraints.maxWidth * 0.35,
+                                        ),
+                                        theme: t,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          );
+                        }
 
+                        final imageSize = math.max(0.0, cardWidth - 64);
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -95,107 +128,14 @@ class PlanView extends StatelessWidget {
                                   width: cardWidth,
                                   height: constraints.maxHeight,
                                   child: _ScaleDown(
-                                    child: Card.filled(
-                                      shape: RoundedRectangleBorder(
-                                        // side: BorderSide(color: Colors.blue),
-                                        borderRadius: BorderRadius.circular(
-                                          compact ? 24 : 48,
-                                        ),
-                                      ),
-                                      // shape: RoundedRectangleBorder(
-                                      //   side: BorderSide(color: Colors.red),
-                                      //   borderRadius: BorderRadius.circular(48),
-                                      // ),
-                                      margin: EdgeInsets.all(compact ? 8 : 16),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(
-                                          compact ? 8 : 16,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                    compact ? 16 : 32,
-                                                  ),
-                                              child: ConstrainedBox(
-                                                constraints: BoxConstraints(
-                                                  maxWidth: imageSize,
-                                                ),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: person.imageUrl,
-                                                  fit: BoxFit.contain,
-                                                  progressIndicatorBuilder:
-                                                      (
-                                                        context,
-                                                        url,
-                                                        downloadProgress,
-                                                      ) => Center(
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                              value:
-                                                                  downloadProgress
-                                                                      .progress,
-                                                            ),
-                                                      ),
-                                                  errorWidget:
-                                                      (
-                                                        context,
-                                                        url,
-                                                        error,
-                                                      ) => Center(
-                                                        child: Icon(
-                                                          Icons
-                                                              .error_outline_rounded,
-                                                        ),
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                    0,
-                                                    8.0,
-                                                    0,
-                                                    0,
-                                                  ),
-                                              child: Text(
-                                                person.shortName,
-                                                textAlign: TextAlign.center,
-                                                style: compact
-                                                    ? t.textTheme.headlineMedium
-                                                    : t.textTheme.displayMedium
-                                                          ?.copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                          ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                    0,
-                                                    8.0,
-                                                    0,
-                                                    0,
-                                                  ),
-                                              child: Text(
-                                                mics
-                                                    ? person.micId!
-                                                    : person.role,
-                                                textAlign: TextAlign.center,
-                                                style: compact
-                                                    ? t.textTheme.displaySmall
-                                                    : t.textTheme.displayLarge,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    child: _PlanPersonCard(
+                                      person: person,
+                                      compact: compact,
+                                      mics: mics,
+                                      vertical: false,
+                                      width: cardWidth,
+                                      imageSize: imageSize,
+                                      theme: t,
                                     ),
                                   ),
                                 ),
@@ -234,6 +174,106 @@ class PlanView extends StatelessWidget {
       ),
     );
   }
+}
+
+class _PlanPersonCard extends StatelessWidget {
+  final Person person;
+  final bool compact;
+  final bool mics;
+  final bool vertical;
+  final double width;
+  final double imageSize;
+  final ThemeData theme;
+
+  const _PlanPersonCard({
+    required this.person,
+    required this.compact,
+    required this.mics,
+    required this.vertical,
+    required this.width,
+    required this.imageSize,
+    required this.theme,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final details = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: vertical
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            person.shortName,
+            textAlign: vertical ? TextAlign.start : TextAlign.center,
+            style: compact
+                ? theme.textTheme.headlineMedium
+                : theme.textTheme.displayMedium?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            mics ? person.micId! : person.role,
+            textAlign: vertical ? TextAlign.start : TextAlign.center,
+            style: compact
+                ? theme.textTheme.displaySmall
+                : theme.textTheme.displayLarge,
+          ),
+        ),
+      ],
+    );
+    final image = ClipRRect(
+      borderRadius: BorderRadius.circular(vertical ? 16 : (compact ? 16 : 32)),
+      child: vertical
+          ? SizedBox.square(dimension: imageSize, child: _personImage())
+          : ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: imageSize),
+              child: _personImage(),
+            ),
+    );
+
+    return SizedBox(
+      width: width,
+      child: Card.filled(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(compact ? 24 : 48),
+        ),
+        margin: EdgeInsets.all(compact ? 8 : 16),
+        child: Padding(
+          padding: EdgeInsets.all(compact ? 8 : 16),
+          child: vertical
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    image,
+                    SizedBox(width: compact ? 12 : 24),
+                    Expanded(child: details),
+                  ],
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [image, details],
+                ),
+        ),
+      ),
+    );
+  }
+
+  Widget _personImage() => CachedNetworkImage(
+    imageUrl: person.imageUrl,
+    fit: BoxFit.contain,
+    progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+      child: CircularProgressIndicator(value: downloadProgress.progress),
+    ),
+    errorWidget: (context, url, error) =>
+        Center(child: Icon(Icons.error_outline_rounded)),
+  );
 }
 
 class _ScaleDown extends SingleChildRenderObjectWidget {
